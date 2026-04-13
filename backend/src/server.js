@@ -4,18 +4,22 @@ import { config } from "dotenv"
 import cors from 'cors'
 import { connectDB, disconnectDB } from "./config/db.js"
 import cookieParser from 'cookie-parser'
-import authRoutes from "./routes/authRoutes.js"
+import authRouter from'./routes/authRoutes.js'
+import userRouter from './routes/userRoutes.js'
 
 const app = express()
 
+const allowedOrigins = ['http://localhost:3000']
+
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({ credentials: true}))
+app.use(cors({ origin: allowedOrigins, credentials: true}))
 
 config()
 connectDB()
 
-app.use('/auth', authRoutes)
+app.use('/auth', authRouter)
+app.use('/user', userRouter)
 
 const PORT = 5001
 const server = app.listen(PORT, () => {

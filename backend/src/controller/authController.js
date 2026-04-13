@@ -46,18 +46,15 @@ export const register = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-            maxAge: 7 * 24 * 60 * 1000
+            maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
         res.status(201).json({
-            status: 'success',
-            data: {
-                user: {
-                    id: user.id,
-                    name: user.name,
-                    email: user.email,
-                },
-                token
+            success: true,
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
             }
         })
 
@@ -89,7 +86,7 @@ export const login = async (req, res) => {
         })
 
         if (!user) {
-            res.json({
+            return res.json({
                 success: false,
                 message: 'Email is not exist'
             })
@@ -98,7 +95,7 @@ export const login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password)
 
         if (!isMatch) {
-            res.json({
+            return res.json({
                 success: false,
                 message: 'Invalid Password'
             })
@@ -112,12 +109,12 @@ export const login = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-            maxAge: 7 * 24 * 60 * 1000
+            maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        res.status(201).json({
-            status: true,
-            message: 'Succesfully Login'
+        res.status(200).json({
+            success: true,
+            message: 'Successfully Login'
         })
 
 
@@ -144,6 +141,19 @@ export const logout = async (req, res) => {
     } catch (error) {
         return res.json({
             sucess: false,
+            message: error.message
+        })
+    }
+}
+
+export const isAuth = async (req, res) => {
+    try {
+        return res.json({
+            success: true,
+        })
+    } catch (error) {
+        return res.json({
+            success: false,
             message: error.message
         })
     }
