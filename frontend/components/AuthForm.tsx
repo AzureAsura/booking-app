@@ -1,18 +1,14 @@
 'use client'
 import { AuthContent } from "@/context/AuthContext"
+import { useAuthStore } from "@/store/authStore"
 import { useRouter } from "next/navigation"
 import { useContext, useState } from "react"
 import { toast } from "sonner"
 
 const AuthForm = () => {
 
-    const context = useContext(AuthContent)
-
-    if (!context) {
-        return null
-    }
-
-    const { backendUrl, setIsLoggedIn, getUserData } = context
+    const { getUserData, setIsLoggedIn } = useAuthStore()
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
     const router = useRouter()
 
@@ -55,6 +51,8 @@ const AuthForm = () => {
                 const data = await res.json()
 
                 if (data.success) {
+                    toast.success("Login berhasil")
+
                     setIsLoggedIn(true)
                     await getUserData()
                     router.push('/')

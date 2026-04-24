@@ -125,6 +125,30 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
+  image: 'image',
+  role: 'role',
+  recentSearchedCities: 'recentSearchedCities',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.HotelScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  address: 'address',
+  contact: 'contact',
+  city: 'city',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RoomScalarFieldEnum = {
+  id: 'id',
+  roomType: 'roomType',
+  pricePerNight: 'pricePerNight',
+  amenities: 'amenities',
+  images: 'images',
+  isAvailable: 'isAvailable',
+  hotelId: 'hotelId',
   createdAt: 'createdAt'
 };
 
@@ -138,9 +162,19 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.Role = exports.$Enums.Role = {
+  user: 'user',
+  hotelOwner: 'hotelOwner'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Hotel: 'Hotel',
+  Room: 'Room'
 };
 
 /**

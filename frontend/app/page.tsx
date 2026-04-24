@@ -1,21 +1,27 @@
 'use client'
 
-import { useAuth } from "@/wrapper/useAuth"
+import { useAuthStore } from "@/store/authStore"
+
+
 
 const Page = () => {
 
-  const { userData, logout } = useAuth()
+  const { userData, logout } = useAuthStore()
 
-  
   if (!userData) {
     return <p>Loading...</p>
   }
 
+  console.log(userData)
+
+
 
   return (
     <div>
-      <p>hi {userData.name}</p>
-      <button onClick={logout}>Logout</button>
+      <p>Nama: {userData.name}</p>
+      <p>Email: {userData.email}</p>
+
+      <button onClick={logout}>logout</button>
     </div>
   )
 }
