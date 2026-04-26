@@ -53,6 +53,7 @@ export const getRooms = async (req, res) => {
             },
             include: {
                 hotel: {
+
                     include: {
                         owner: {
                             select: {
@@ -71,6 +72,77 @@ export const getRooms = async (req, res) => {
 
     } catch (error) {
         res.json({ success: false, message: error.message })
+
+    }
+}
+
+export const getOwnerRooms = async (req, res) => {
+
+
+    try {
+
+        const owner = req.user.id
+
+        const hotelData = await prisma.hotel.findFirst({
+            where: {
+                ownerId: owner
+            }
+        })
+
+        if (!hotelData) {
+            return res.json({ success: false, message: "No hotel found" })
+        }
+
+        const rooms = await prisma.room.findMany({
+            where: {
+                hotelId: hotelData.id
+            },
+            include: {
+                hotel: true
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+        })
+
+        res.json({ success: true, rooms })
+
+    } catch (error) {
+
+        res.json({ success: false, message: error.message })
+
+    }
+}
+
+export const toggleRoomAvailabilty = async (req, res) => {
+
+    try {
+        const { roomId } = req.body
+
+        const roomData = await prisma.room.findUnique({
+            where: {
+                id: roomId
+            }
+        })
+
+        if (!room) {
+            return res.json({ success: false, message: "Room not found" })
+        }
+
+        await prisma.room.update({
+            where: {
+                id: roomId
+            },
+            data: {
+                isAvailable: !roomData.isAvailable
+            }
+        })
+
+        res.json({ success: true, message: "Room availability updated" })
+    } catch (error) {
+
+        res.json({ success: false, message: error.message })
+
 
     }
 }

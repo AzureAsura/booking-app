@@ -9,6 +9,7 @@ import userRouter from './routes/userRoutes.js'
 import hotelRouter from './routes/hotelRoutes.js'
 import connectCloudinary from './config/cloudinary.js'
 import roomRouter from './routes/roomRoutes.js'
+import bookingRouter from './routes/bookingRoutes.js'
 
 const app = express()
 
@@ -26,6 +27,7 @@ app.use('/auth', authRouter)
 app.use('/user', userRouter)
 app.use('/hotels', hotelRouter)
 app.use('/rooms', roomRouter)
+app.use('/bookings', bookingRouter)
 
 const PORT = 5001
 const server = app.listen(PORT, () => {

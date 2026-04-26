@@ -12,6 +12,12 @@ enum Role {
   hotelOwner
 }
 
+enum Status {
+  pending
+  confirmed
+  cancelled
+}
+
 model User {
   id                   String   @id @default(uuid())
   name                 String
@@ -22,6 +28,7 @@ model User {
   recentSearchedCities String[]
 
   hotels                 Hotel[]
+  bookings Booking[]
 
   createdAt DateTime @default(now())
 }
@@ -37,6 +44,7 @@ model Hotel {
   owner     User     @relation(fields: [ownerId], references: [id])
 
   rooms     Room[]
+  bookings Booking[]
 
   createdAt DateTime @default(now())
 }
@@ -48,11 +56,35 @@ model Room {
   amenities      String[]  
   images         String[]
   isAvailable Boolean
+  createdAt DateTime @default(now())
 
 
   hotelId String
   hotel Hotel @relation(fields: [hotelId], references: [id])
 
+  bookings       Booking[]
+
+
+}
+
+model Booking {
+  id String @id @default(uuid())
+  userId String
+  roomId String
+  hotelId String
+  checkInDate DateTime
+  checkOutDate DateTime
+  totalPrice Int
+  guests Int
+  status Status @default(pending)
+  paymentMethod String @default("Pay at Hotel")
+  isPaid Boolean @default(false)
   createdAt DateTime @default(now())
+  
+
+  user User @relation(fields: [userId], references: [id])
+  room Room @relation(fields: [roomId], references: [id])
+  hotel Hotel @relation(fields: [hotelId], references: [id])
+
 
 }
