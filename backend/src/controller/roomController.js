@@ -28,7 +28,7 @@ export const createRooms = async (req, res) => {
         await prisma.room.create({
             data: {
                 roomType,
-                pricePerNight,
+                pricePerNight: parseInt(pricePerNight),
                 amenities: JSON.parse(amenities),
                 images,
                 isAvailable: true,
@@ -49,7 +49,10 @@ export const getRooms = async (req, res) => {
     try {
         const rooms = await prisma.room.findMany({
             where: {
-                isAvailable: true
+                isAvailable: true,
+                hotel: {
+                    status: 'approved'
+                }
             },
             include: {
                 hotel: {
@@ -125,7 +128,7 @@ export const toggleRoomAvailabilty = async (req, res) => {
             }
         })
 
-        if (!room) {
+        if (!roomData) {
             return res.json({ success: false, message: "Room not found" })
         }
 

@@ -40,10 +40,20 @@ export type Booking = $Result.DefaultSelection<Prisma.$BookingPayload>
 export namespace $Enums {
   export const Role: {
   user: 'user',
-  hotelOwner: 'hotelOwner'
+  hotelOwner: 'hotelOwner',
+  admin: 'admin'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const HotelStatus: {
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected'
+};
+
+export type HotelStatus = (typeof HotelStatus)[keyof typeof HotelStatus]
 
 
 export const Status: {
@@ -59,6 +69,10 @@ export type Status = (typeof Status)[keyof typeof Status]
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type HotelStatus = $Enums.HotelStatus
+
+export const HotelStatus: typeof $Enums.HotelStatus
 
 export type Status = $Enums.Status
 
@@ -2433,6 +2447,11 @@ export namespace Prisma {
     address: string | null
     contact: string | null
     city: string | null
+    image: string | null
+    status: $Enums.HotelStatus | null
+    rejectionReason: string | null
+    reviewedAt: Date | null
+    reviewedById: string | null
     ownerId: string | null
     createdAt: Date | null
   }
@@ -2443,6 +2462,11 @@ export namespace Prisma {
     address: string | null
     contact: string | null
     city: string | null
+    image: string | null
+    status: $Enums.HotelStatus | null
+    rejectionReason: string | null
+    reviewedAt: Date | null
+    reviewedById: string | null
     ownerId: string | null
     createdAt: Date | null
   }
@@ -2453,6 +2477,11 @@ export namespace Prisma {
     address: number
     contact: number
     city: number
+    image: number
+    status: number
+    rejectionReason: number
+    reviewedAt: number
+    reviewedById: number
     ownerId: number
     createdAt: number
     _all: number
@@ -2465,6 +2494,11 @@ export namespace Prisma {
     address?: true
     contact?: true
     city?: true
+    image?: true
+    status?: true
+    rejectionReason?: true
+    reviewedAt?: true
+    reviewedById?: true
     ownerId?: true
     createdAt?: true
   }
@@ -2475,6 +2509,11 @@ export namespace Prisma {
     address?: true
     contact?: true
     city?: true
+    image?: true
+    status?: true
+    rejectionReason?: true
+    reviewedAt?: true
+    reviewedById?: true
     ownerId?: true
     createdAt?: true
   }
@@ -2485,6 +2524,11 @@ export namespace Prisma {
     address?: true
     contact?: true
     city?: true
+    image?: true
+    status?: true
+    rejectionReason?: true
+    reviewedAt?: true
+    reviewedById?: true
     ownerId?: true
     createdAt?: true
     _all?: true
@@ -2568,6 +2612,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status: $Enums.HotelStatus
+    rejectionReason: string | null
+    reviewedAt: Date | null
+    reviewedById: string | null
     ownerId: string
     createdAt: Date
     _count: HotelCountAggregateOutputType | null
@@ -2595,6 +2644,11 @@ export namespace Prisma {
     address?: boolean
     contact?: boolean
     city?: boolean
+    image?: boolean
+    status?: boolean
+    rejectionReason?: boolean
+    reviewedAt?: boolean
+    reviewedById?: boolean
     ownerId?: boolean
     createdAt?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
@@ -2609,6 +2663,11 @@ export namespace Prisma {
     address?: boolean
     contact?: boolean
     city?: boolean
+    image?: boolean
+    status?: boolean
+    rejectionReason?: boolean
+    reviewedAt?: boolean
+    reviewedById?: boolean
     ownerId?: boolean
     createdAt?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
@@ -2620,6 +2679,11 @@ export namespace Prisma {
     address?: boolean
     contact?: boolean
     city?: boolean
+    image?: boolean
+    status?: boolean
+    rejectionReason?: boolean
+    reviewedAt?: boolean
+    reviewedById?: boolean
     ownerId?: boolean
     createdAt?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
@@ -2631,11 +2695,16 @@ export namespace Prisma {
     address?: boolean
     contact?: boolean
     city?: boolean
+    image?: boolean
+    status?: boolean
+    rejectionReason?: boolean
+    reviewedAt?: boolean
+    reviewedById?: boolean
     ownerId?: boolean
     createdAt?: boolean
   }
 
-  export type HotelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "contact" | "city" | "ownerId" | "createdAt", ExtArgs["result"]["hotel"]>
+  export type HotelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "contact" | "city" | "image" | "status" | "rejectionReason" | "reviewedAt" | "reviewedById" | "ownerId" | "createdAt", ExtArgs["result"]["hotel"]>
   export type HotelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | UserDefaultArgs<ExtArgs>
     rooms?: boolean | Hotel$roomsArgs<ExtArgs>
@@ -2662,6 +2731,11 @@ export namespace Prisma {
       address: string
       contact: string
       city: string
+      image: string
+      status: $Enums.HotelStatus
+      rejectionReason: string | null
+      reviewedAt: Date | null
+      reviewedById: string | null
       ownerId: string
       createdAt: Date
     }, ExtArgs["result"]["hotel"]>
@@ -3095,6 +3169,11 @@ export namespace Prisma {
     readonly address: FieldRef<"Hotel", 'String'>
     readonly contact: FieldRef<"Hotel", 'String'>
     readonly city: FieldRef<"Hotel", 'String'>
+    readonly image: FieldRef<"Hotel", 'String'>
+    readonly status: FieldRef<"Hotel", 'HotelStatus'>
+    readonly rejectionReason: FieldRef<"Hotel", 'String'>
+    readonly reviewedAt: FieldRef<"Hotel", 'DateTime'>
+    readonly reviewedById: FieldRef<"Hotel", 'String'>
     readonly ownerId: FieldRef<"Hotel", 'String'>
     readonly createdAt: FieldRef<"Hotel", 'DateTime'>
   }
@@ -5964,6 +6043,11 @@ export namespace Prisma {
     address: 'address',
     contact: 'contact',
     city: 'city',
+    image: 'image',
+    status: 'status',
+    rejectionReason: 'rejectionReason',
+    reviewedAt: 'reviewedAt',
+    reviewedById: 'reviewedById',
     ownerId: 'ownerId',
     createdAt: 'createdAt'
   };
@@ -6071,6 +6155,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'HotelStatus'
+   */
+  export type EnumHotelStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HotelStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'HotelStatus[]'
+   */
+  export type ListEnumHotelStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HotelStatus[]'>
     
 
 
@@ -6208,6 +6306,11 @@ export namespace Prisma {
     address?: StringFilter<"Hotel"> | string
     contact?: StringFilter<"Hotel"> | string
     city?: StringFilter<"Hotel"> | string
+    image?: StringFilter<"Hotel"> | string
+    status?: EnumHotelStatusFilter<"Hotel"> | $Enums.HotelStatus
+    rejectionReason?: StringNullableFilter<"Hotel"> | string | null
+    reviewedAt?: DateTimeNullableFilter<"Hotel"> | Date | string | null
+    reviewedById?: StringNullableFilter<"Hotel"> | string | null
     ownerId?: StringFilter<"Hotel"> | string
     createdAt?: DateTimeFilter<"Hotel"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -6221,6 +6324,11 @@ export namespace Prisma {
     address?: SortOrder
     contact?: SortOrder
     city?: SortOrder
+    image?: SortOrder
+    status?: SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
+    reviewedAt?: SortOrderInput | SortOrder
+    reviewedById?: SortOrderInput | SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
     owner?: UserOrderByWithRelationInput
@@ -6237,6 +6345,11 @@ export namespace Prisma {
     address?: StringFilter<"Hotel"> | string
     contact?: StringFilter<"Hotel"> | string
     city?: StringFilter<"Hotel"> | string
+    image?: StringFilter<"Hotel"> | string
+    status?: EnumHotelStatusFilter<"Hotel"> | $Enums.HotelStatus
+    rejectionReason?: StringNullableFilter<"Hotel"> | string | null
+    reviewedAt?: DateTimeNullableFilter<"Hotel"> | Date | string | null
+    reviewedById?: StringNullableFilter<"Hotel"> | string | null
     ownerId?: StringFilter<"Hotel"> | string
     createdAt?: DateTimeFilter<"Hotel"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -6250,6 +6363,11 @@ export namespace Prisma {
     address?: SortOrder
     contact?: SortOrder
     city?: SortOrder
+    image?: SortOrder
+    status?: SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
+    reviewedAt?: SortOrderInput | SortOrder
+    reviewedById?: SortOrderInput | SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
     _count?: HotelCountOrderByAggregateInput
@@ -6266,6 +6384,11 @@ export namespace Prisma {
     address?: StringWithAggregatesFilter<"Hotel"> | string
     contact?: StringWithAggregatesFilter<"Hotel"> | string
     city?: StringWithAggregatesFilter<"Hotel"> | string
+    image?: StringWithAggregatesFilter<"Hotel"> | string
+    status?: EnumHotelStatusWithAggregatesFilter<"Hotel"> | $Enums.HotelStatus
+    rejectionReason?: StringNullableWithAggregatesFilter<"Hotel"> | string | null
+    reviewedAt?: DateTimeNullableWithAggregatesFilter<"Hotel"> | Date | string | null
+    reviewedById?: StringNullableWithAggregatesFilter<"Hotel"> | string | null
     ownerId?: StringWithAggregatesFilter<"Hotel"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Hotel"> | Date | string
   }
@@ -6534,6 +6657,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status?: $Enums.HotelStatus
+    rejectionReason?: string | null
+    reviewedAt?: Date | string | null
+    reviewedById?: string | null
     createdAt?: Date | string
     owner: UserCreateNestedOneWithoutHotelsInput
     rooms?: RoomCreateNestedManyWithoutHotelInput
@@ -6546,6 +6674,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status?: $Enums.HotelStatus
+    rejectionReason?: string | null
+    reviewedAt?: Date | string | null
+    reviewedById?: string | null
     ownerId: string
     createdAt?: Date | string
     rooms?: RoomUncheckedCreateNestedManyWithoutHotelInput
@@ -6558,6 +6691,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutHotelsNestedInput
     rooms?: RoomUpdateManyWithoutHotelNestedInput
@@ -6570,6 +6708,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: RoomUncheckedUpdateManyWithoutHotelNestedInput
@@ -6582,6 +6725,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status?: $Enums.HotelStatus
+    rejectionReason?: string | null
+    reviewedAt?: Date | string | null
+    reviewedById?: string | null
     ownerId: string
     createdAt?: Date | string
   }
@@ -6592,6 +6740,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6601,6 +6754,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6959,6 +7117,24 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumHotelStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.HotelStatus | EnumHotelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.HotelStatus[] | ListEnumHotelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HotelStatus[] | ListEnumHotelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumHotelStatusFilter<$PrismaModel> | $Enums.HotelStatus
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -6980,6 +7156,11 @@ export namespace Prisma {
     address?: SortOrder
     contact?: SortOrder
     city?: SortOrder
+    image?: SortOrder
+    status?: SortOrder
+    rejectionReason?: SortOrder
+    reviewedAt?: SortOrder
+    reviewedById?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
   }
@@ -6990,6 +7171,11 @@ export namespace Prisma {
     address?: SortOrder
     contact?: SortOrder
     city?: SortOrder
+    image?: SortOrder
+    status?: SortOrder
+    rejectionReason?: SortOrder
+    reviewedAt?: SortOrder
+    reviewedById?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
   }
@@ -7000,8 +7186,37 @@ export namespace Prisma {
     address?: SortOrder
     contact?: SortOrder
     city?: SortOrder
+    image?: SortOrder
+    status?: SortOrder
+    rejectionReason?: SortOrder
+    reviewedAt?: SortOrder
+    reviewedById?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type EnumHotelStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HotelStatus | EnumHotelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.HotelStatus[] | ListEnumHotelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HotelStatus[] | ListEnumHotelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumHotelStatusWithAggregatesFilter<$PrismaModel> | $Enums.HotelStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHotelStatusFilter<$PrismaModel>
+    _max?: NestedEnumHotelStatusFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -7304,6 +7519,14 @@ export namespace Prisma {
     connectOrCreate?: BookingCreateOrConnectWithoutHotelInput | BookingCreateOrConnectWithoutHotelInput[]
     createMany?: BookingCreateManyHotelInputEnvelope
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type EnumHotelStatusFieldUpdateOperationsInput = {
+    set?: $Enums.HotelStatus
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type UserUpdateOneRequiredWithoutHotelsNestedInput = {
@@ -7628,6 +7851,48 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumHotelStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.HotelStatus | EnumHotelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.HotelStatus[] | ListEnumHotelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HotelStatus[] | ListEnumHotelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumHotelStatusFilter<$PrismaModel> | $Enums.HotelStatus
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedEnumHotelStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HotelStatus | EnumHotelStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.HotelStatus[] | ListEnumHotelStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HotelStatus[] | ListEnumHotelStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumHotelStatusWithAggregatesFilter<$PrismaModel> | $Enums.HotelStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHotelStatusFilter<$PrismaModel>
+    _max?: NestedEnumHotelStatusFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -7691,6 +7956,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status?: $Enums.HotelStatus
+    rejectionReason?: string | null
+    reviewedAt?: Date | string | null
+    reviewedById?: string | null
     createdAt?: Date | string
     rooms?: RoomCreateNestedManyWithoutHotelInput
     bookings?: BookingCreateNestedManyWithoutHotelInput
@@ -7702,6 +7972,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status?: $Enums.HotelStatus
+    rejectionReason?: string | null
+    reviewedAt?: Date | string | null
+    reviewedById?: string | null
     createdAt?: Date | string
     rooms?: RoomUncheckedCreateNestedManyWithoutHotelInput
     bookings?: BookingUncheckedCreateNestedManyWithoutHotelInput
@@ -7780,6 +8055,11 @@ export namespace Prisma {
     address?: StringFilter<"Hotel"> | string
     contact?: StringFilter<"Hotel"> | string
     city?: StringFilter<"Hotel"> | string
+    image?: StringFilter<"Hotel"> | string
+    status?: EnumHotelStatusFilter<"Hotel"> | $Enums.HotelStatus
+    rejectionReason?: StringNullableFilter<"Hotel"> | string | null
+    reviewedAt?: DateTimeNullableFilter<"Hotel"> | Date | string | null
+    reviewedById?: StringNullableFilter<"Hotel"> | string | null
     ownerId?: StringFilter<"Hotel"> | string
     createdAt?: DateTimeFilter<"Hotel"> | Date | string
   }
@@ -8004,6 +8284,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status?: $Enums.HotelStatus
+    rejectionReason?: string | null
+    reviewedAt?: Date | string | null
+    reviewedById?: string | null
     createdAt?: Date | string
     owner: UserCreateNestedOneWithoutHotelsInput
     bookings?: BookingCreateNestedManyWithoutHotelInput
@@ -8015,6 +8300,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status?: $Enums.HotelStatus
+    rejectionReason?: string | null
+    reviewedAt?: Date | string | null
+    reviewedById?: string | null
     ownerId: string
     createdAt?: Date | string
     bookings?: BookingUncheckedCreateNestedManyWithoutHotelInput
@@ -8080,6 +8370,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutHotelsNestedInput
     bookings?: BookingUpdateManyWithoutHotelNestedInput
@@ -8091,6 +8386,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: BookingUncheckedUpdateManyWithoutHotelNestedInput
@@ -8174,6 +8474,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status?: $Enums.HotelStatus
+    rejectionReason?: string | null
+    reviewedAt?: Date | string | null
+    reviewedById?: string | null
     createdAt?: Date | string
     owner: UserCreateNestedOneWithoutHotelsInput
     rooms?: RoomCreateNestedManyWithoutHotelInput
@@ -8185,6 +8490,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status?: $Enums.HotelStatus
+    rejectionReason?: string | null
+    reviewedAt?: Date | string | null
+    reviewedById?: string | null
     ownerId: string
     createdAt?: Date | string
     rooms?: RoomUncheckedCreateNestedManyWithoutHotelInput
@@ -8280,6 +8590,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutHotelsNestedInput
     rooms?: RoomUpdateManyWithoutHotelNestedInput
@@ -8291,6 +8606,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     ownerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: RoomUncheckedUpdateManyWithoutHotelNestedInput
@@ -8302,6 +8622,11 @@ export namespace Prisma {
     address: string
     contact: string
     city: string
+    image: string
+    status?: $Enums.HotelStatus
+    rejectionReason?: string | null
+    reviewedAt?: Date | string | null
+    reviewedById?: string | null
     createdAt?: Date | string
   }
 
@@ -8325,6 +8650,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: RoomUpdateManyWithoutHotelNestedInput
     bookings?: BookingUpdateManyWithoutHotelNestedInput
@@ -8336,6 +8666,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     rooms?: RoomUncheckedUpdateManyWithoutHotelNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutHotelNestedInput
@@ -8347,6 +8682,11 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: EnumHotelStatusFieldUpdateOperationsInput | $Enums.HotelStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

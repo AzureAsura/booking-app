@@ -10,6 +10,13 @@ datasource db {
 enum Role {
   user
   hotelOwner
+  admin
+}
+
+enum HotelStatus {
+  pending
+  approved
+  rejected
 }
 
 enum Status {
@@ -34,16 +41,20 @@ model User {
 }
 
 model Hotel {
-  id   String @id @default(uuid())
-  name String
-  address String
-  contact String
-  city String
+  id              String      @id @default(uuid())
+  name            String
+  address         String
+  contact         String
+  city            String
+  image           String
+  status          HotelStatus @default(pending)
+  rejectionReason String?
+  reviewedAt      DateTime?
+  reviewedById    String?
 
-  ownerId   String
-  owner     User     @relation(fields: [ownerId], references: [id])
-
-  rooms     Room[]
+  ownerId  String
+  owner    User      @relation(fields: [ownerId], references: [id])
+  rooms    Room[]
   bookings Booking[]
 
   createdAt DateTime @default(now())

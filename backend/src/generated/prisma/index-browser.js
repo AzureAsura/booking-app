@@ -137,6 +137,11 @@ exports.Prisma.HotelScalarFieldEnum = {
   address: 'address',
   contact: 'contact',
   city: 'city',
+  image: 'image',
+  status: 'status',
+  rejectionReason: 'rejectionReason',
+  reviewedAt: 'reviewedAt',
+  reviewedById: 'reviewedById',
   ownerId: 'ownerId',
   createdAt: 'createdAt'
 };
@@ -183,7 +188,14 @@ exports.Prisma.NullsOrder = {
 };
 exports.Role = exports.$Enums.Role = {
   user: 'user',
-  hotelOwner: 'hotelOwner'
+  hotelOwner: 'hotelOwner',
+  admin: 'admin'
+};
+
+exports.HotelStatus = exports.$Enums.HotelStatus = {
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected'
 };
 
 exports.Status = exports.$Enums.Status = {

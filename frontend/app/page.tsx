@@ -1,27 +1,16 @@
-'use client'
 
-import { useAuthStore } from "@/store/authStore"
+import HotelCard from '@/components/HotelCard'
+import Navbar from '@/components/Navbar'
+import Hero from '@/components/Hero'
+import HotelList from '@/components/HotelList'
 
-
-
-const Page = () => {
-
-  const { userData, logout } = useAuthStore()
-
-  if (!userData) {
-    return <p>Loading...</p>
-  }
-
-  console.log(userData)
-
-
+const Page = async () => {
 
   return (
-    <div>
-      <p>Nama: {userData.name}</p>
-      <p>Email: {userData.email}</p>
-
-      <button onClick={logout}>logout</button>
+    <div className="min-h-screen bg-gray-50">
+      <Navbar/>
+      <Hero/>
+      <HotelList/>
     </div>
   )
 }
